@@ -780,6 +780,11 @@
       .strip-logo img { width: 100%; height: 100%; object-fit: cover; }
       .strip-title { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
       .strip-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: auto; }
+      /* "+ Add new student" is an office-only action: the .btn class sets
+         display:inline-flex, which would otherwise override the hidden
+         attribute the role switch toggles — so enforce it here, on every
+         viewport, phone layout included. Visible only in Office/Admin view. */
+      #btnAddStudent[hidden] { display: none !important; }
       .strip-icon {
         width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface-2);
         display: grid; place-items: center; color: var(--ink-2); position: relative; flex: none;
