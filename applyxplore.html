@@ -222,7 +222,7 @@
       .uni .facts dt { color: var(--muted); font-weight: 600; }
       .uni .facts dd { margin: 0; font-weight: 700; text-align: right; }
       .uni .facts .was { color: var(--muted); text-decoration: line-through; font-weight: 600; margin-right: 6px; }
-      .uni .facts .free-now { color: var(--brand); }
+      .uni .facts .free-now { color: var(--brand-deep); }
       .empty {
         border: 1.5px dashed var(--line-strong); border-radius: var(--radius); padding: 34px 22px;
         text-align: center; color: var(--ink-2); background: var(--surface-2);
@@ -295,7 +295,7 @@
       fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 14px; min-width: 0; }
       legend { font-family: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif; font-size: 19px; font-weight: 700; padding: 0; margin-bottom: 2px; display: flex; align-items: center; gap: 10px; }
       legend .ln {
-        width: 26px; height: 26px; border-radius: 50%; background: var(--brand-soft); color: var(--brand);
+        width: 26px; height: 26px; border-radius: 50%; background: var(--brand-soft); color: var(--brand-deep);
         display: inline-grid; place-items: center; font-size: 14px; font-weight: 800; flex: none;
       }
       .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -424,7 +424,7 @@
       .after-app ol { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14.5px; color: var(--ink-2); }
       .after-app ol b { color: var(--ink); }
 
-      /* ---------- Portal (ApplyBoard-style, organized) ---------- */
+      /* ---------- Portal (organized) ---------- */
       .portal-top { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: end; justify-content: space-between; margin-bottom: 18px; }
       .portal-title { font-size: clamp(28px, 3.6vw, 38px); font-weight: 800; letter-spacing: -0.015em; margin-top: 10px; }
       .portal-sub { color: var(--ink-2); margin-top: 6px; max-width: 44em; }
@@ -638,7 +638,7 @@
       .dest h3 { font-size: 17px; }
       .dest .count { font-size: 13px; color: var(--muted); font-weight: 600; white-space: nowrap; }
       .dest.active { border-color: var(--brand); background: var(--brand-soft); box-shadow: 0 0 0 1px var(--brand); }
-      .chip { min-height: 40px; }
+      .chip { min-height: 44px; }
       .btn { min-height: 48px; }
       .more-wrap { text-align: center; margin: 22px 0 6px; }
       .uni { min-width: 0; }
@@ -711,12 +711,12 @@
       .dock-idea-chips { display: flex; flex-wrap: wrap; gap: 7px; }
       .idea-chip {
         border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2);
-        border-radius: 999px; padding: 7px 12px; font-weight: 600; font-size: 13.5px; min-height: 38px;
+        border-radius: 999px; padding: 7px 12px; font-weight: 600; font-size: 13.5px; min-height: 44px;
       }
       .idea-chip:hover { border-color: var(--brand); color: var(--ink); }
       .dock-chat { display: flex; gap: 8px; align-items: center; min-width: 0; }
       .dock-round {
-        width: 42px; height: 42px; border-radius: 50%; flex: none; display: grid; place-items: center;
+        width: 44px; height: 44px; border-radius: 50%; flex: none; display: grid; place-items: center;
         background: var(--surface-2); border: 1px solid var(--line-strong); color: var(--ink-2);
       }
       .dock-round:hover { border-color: var(--brand); color: var(--brand); }
@@ -795,15 +795,17 @@
         background: var(--accent); color: #3d2a00; border: 2px solid var(--surface); border-radius: 999px;
         font-size: 11px; font-weight: 800; display: grid; place-items: center;
       }
-      .clean-shell { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 18px; align-items: start; }
+      .clean-shell { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 18px; align-items: start; }
       .icon-rail {
         position: sticky; top: 84px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
         padding: 10px 0; display: flex; flex-direction: column; align-items: center; gap: 4px; z-index: 5;
       }
       .rail-btn {
-        width: 44px; height: 44px; border-radius: 12px; border: 0; background: transparent; color: var(--ink-2);
-        display: grid; place-items: center; position: relative; flex: none;
+        width: 70px; min-height: 58px; border-radius: 12px; border: 0; background: transparent; color: var(--ink-2);
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+        padding: 7px 2px 6px; position: relative; flex: none;
       }
+      .rail-label { font-size: 10px; font-weight: 700; line-height: 1.15; text-align: center; letter-spacing: -0.02em; max-width: 68px; }
       .rail-btn:hover { background: var(--bg-soft); color: var(--ink); }
       .rail-btn.is-active { background: var(--brand-soft); color: var(--brand-deep); }
       .rail-badge {
@@ -892,6 +894,7 @@
           position: sticky; top: 64px; flex-direction: row; flex-wrap: wrap; justify-content: center;
           padding: 8px; border-radius: 14px;
         }
+        .rail-btn { flex: 1 1 76px; width: auto; }
         .clean-stats, .clean-stats-5 { grid-template-columns: 1fr 1fr; }
         .cstat { padding: 16px; }
         .cstat-search { grid-column: 1 / -1; }
@@ -900,6 +903,20 @@
         .cstat b { font-size: 25px; }
         #studentView .portal-panel { padding: 20px 18px; }
       }
+      /* ---------- Critique fixes: focus, contrast, preview, uploads ---------- */
+      :where(button, a, input, select, textarea, .rail-btn, .chip, .tab, [tabindex]):focus-visible {
+        outline: 2px solid var(--brand-deep); outline-offset: 2px;
+      }
+      /* Small brand-coloured text on tinted backgrounds uses the deep
+         brand colour so it clears 4.5:1; #146CF6 stays for button
+         backgrounds, large/bold headings, icons and borders. */
+      .rule4 a, .match-banner a, .apply-choice-banner a, .after-app a,
+      .msg-done-note a, .portal-panel a:not(.btn), .side-mini a { color: var(--brand-deep); }
+      #homePreviewList .task-row { cursor: pointer; border-radius: 10px; }
+      #homePreviewList .task-row:hover { background: var(--surface-2); }
+      .task-row.task-highlight { background: var(--brand-soft); border-radius: 10px; box-shadow: 0 0 0 2px var(--brand); }
+      .doc-file-note { font-size: 12.5px; color: var(--muted); font-weight: 600; overflow-wrap: anywhere; }
+      .doc-file-note[hidden] { display: none; }
     </style>
   </head>
   <body>
@@ -1028,7 +1045,7 @@
       </div>
 
       <div class="dock-zone">
-      <!-- ================= PORTAL (DEMO) — ApplyBoard-style layout ================= -->
+      <!-- ================= PORTAL (DEMO) — portal layout ================= -->
       <section id="studentView" hidden>
         <div class="wrap">
           <div class="portal-strip">
@@ -1058,14 +1075,14 @@
           <div id="studentPanel">
             <div class="clean-shell">
               <nav class="icon-rail" aria-label="Student portal sections">
-                <button type="button" class="rail-btn is-active" data-ppage="home" aria-label="Home" title="Home"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="search" aria-label="Search university" title="Search university"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="applications" aria-label="My applications" title="My applications"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13H7V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v5h5M9.5 13h5M9.5 17h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="tasks" aria-label="My tasks" title="My tasks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4 12.5 2.5 2.5L11 10.5M4 19l2.5 2.5L11 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6h6M14 13h6M14 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-badge"><span class="js-task-count">4</span></span></button>
-                <button type="button" class="rail-btn" data-ppage="documents" aria-label="My documents" title="My documents"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v10m0 0 3.5-3.5M12 13 8.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="messages" aria-label="Messages" title="Messages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-badge" id="msgRailBadge">2</span></button>
-                <button type="button" class="rail-btn" data-ppage="saved" aria-label="Saved universities" title="Saved universities"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20.5C7 16.5 3.5 13.3 3.5 9.6A4.6 4.6 0 0 1 12 6.7a4.6 4.6 0 0 1 8.5 2.9c0 3.7-3.5 6.9-8.5 10.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-badge" id="savedRailBadge">0</span></button>
-                <button type="button" class="rail-btn" data-ppage="profile" aria-label="My profile" title="My profile"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.2-3.6 4.2-5.4 8-5.4s6.8 1.8 8 5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+                <button type="button" class="rail-btn is-active" data-ppage="home" aria-label="Home" title="Home"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-label">Home</span></button>
+                <button type="button" class="rail-btn" data-ppage="search" aria-label="Search university" title="Search university"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-label">Search university</span></button>
+                <button type="button" class="rail-btn" data-ppage="applications" aria-label="My applications" title="My applications"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13H7V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v5h5M9.5 13h5M9.5 17h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-label">Applications</span></button>
+                <button type="button" class="rail-btn" data-ppage="tasks" aria-label="My tasks" title="My tasks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4 12.5 2.5 2.5L11 10.5M4 19l2.5 2.5L11 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6h6M14 13h6M14 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-label">Tasks</span><span class="rail-badge"><span class="js-task-count">4</span></span></button>
+                <button type="button" class="rail-btn" data-ppage="documents" aria-label="My documents" title="My documents"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v10m0 0 3.5-3.5M12 13 8.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-label">Documents</span></button>
+                <button type="button" class="rail-btn" data-ppage="messages" aria-label="Messages" title="Messages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-label">Messages</span><span class="rail-badge" id="msgRailBadge">2</span></button>
+                <button type="button" class="rail-btn" data-ppage="saved" aria-label="Saved universities" title="Saved universities"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20.5C7 16.5 3.5 13.3 3.5 9.6A4.6 4.6 0 0 1 12 6.7a4.6 4.6 0 0 1 8.5 2.9c0 3.7-3.5 6.9-8.5 10.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-label">Saved</span><span class="rail-badge" id="savedRailBadge">0</span></button>
+                <button type="button" class="rail-btn" data-ppage="profile" aria-label="My profile" title="My profile"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.2-3.6 4.2-5.4 8-5.4s6.8 1.8 8 5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-label">Profile</span></button>
               </nav>
 
               <div class="portal-pages">
@@ -1101,7 +1118,7 @@
                     <span class="msg-count"><span class="js-task-count">4</span>&nbsp;open</span>
                   </div>
                   <ul class="task-list" id="homePreviewList">
-                    <li class="task-row">
+                    <li class="task-row" data-task-id="taskPassport" tabindex="0" role="button" aria-label="Open this task on the Tasks page">
                       <span class="task-dot is-open" aria-hidden="true">!</span>
                       <div class="task-body">
                         <b>Upload your passport scan</b>
@@ -1109,7 +1126,7 @@
                       </div>
                       <span class="task-pill pill-action-t">To do</span>
                     </li>
-                    <li class="task-row">
+                    <li class="task-row" data-task-id="taskTranscript" tabindex="0" role="button" aria-label="Open this task on the Tasks page">
                       <span class="task-dot is-open" aria-hidden="true">!</span>
                       <div class="task-body">
                         <b>Upload your latest transcript</b>
@@ -1117,7 +1134,7 @@
                       </div>
                       <span class="task-pill pill-action-t">To do</span>
                     </li>
-                    <li class="task-row">
+                    <li class="task-row" data-task-id="taskSponsor" tabindex="0" role="button" aria-label="Open this task on the Tasks page">
                       <span class="task-dot is-open" aria-hidden="true">!</span>
                       <div class="task-body">
                         <b>Fill in your sponsor details form</b>
@@ -1171,7 +1188,7 @@
                           <span>For Sample 2 — BBA (Business). A clear colour scan of the information page — we cannot file without it.</span>
                         </div>
                         <span class="task-pill pill-action-t">To do</span>
-                        <button type="button" class="btn btn-brand btn-sm" data-gopage="documents">See documents</button>
+                        <button type="button" class="btn btn-brand btn-sm" data-gopage="documents">Upload in Documents</button>
                       </li>
                       <li class="task-row" id="taskTranscript" data-home-title="Upload your latest transcript" data-home-desc="For Sample 2 — BBA (Business). The most recent one you have.">
                         <span class="task-dot is-open" aria-hidden="true">!</span>
@@ -1180,7 +1197,7 @@
                           <span>For Sample 2 — BBA (Business). The most recent one you have; a phone photo is fine if every mark is readable.</span>
                         </div>
                         <span class="task-pill pill-action-t">To do</span>
-                        <button type="button" class="btn btn-brand btn-sm" data-gopage="documents">See documents</button>
+                        <button type="button" class="btn btn-brand btn-sm" data-gopage="documents">Upload in Documents</button>
                       </li>
                       <li class="task-row" id="taskSponsor" data-home-title="Fill in your sponsor details form" data-home-desc="For Sample 1 — MS Computer Science. Takes about 2 minutes.">
                         <span class="task-dot is-open" aria-hidden="true">!</span>
@@ -1315,7 +1332,7 @@
                     <article class="choice-card is-empty">
                       <div class="sc-top"><span class="choice-slot">Choice 4</span><span class="tag">Free slot</span></div>
                       <h4>No program yet</h4>
-                      <p class="sc-progs">This slot is free. Your 4 choices can be in one country or across countries — pick your best 4.</p>
+                      <p class="sc-progs">This slot is free. Pick a university or program from the Search university tab and tap “Apply” or “Save” on its card.</p>
                       <a class="btn btn-brand btn-sm" href="#universities">Add a program</a>
                     </article>
                   </div>
@@ -1396,12 +1413,12 @@
                     <span class="panel-kicker">5</span>
                     <div>
                       <h3>My documents</h3>
-                      <p>One list for every document, in checklist order: needed first, then received, then with our team. Uploads happen inside Register free; this panel shows what our team holds for you. (Sample statuses.)</p>
+                      <p>One list for every document, in checklist order: needed first, then received, then with our team. Tap Upload on a document we still need and add it right here — the matching task completes at the same time. (Sample statuses.)</p>
                     </div>
                   </div>
                   <div class="docstat-grid">
-                    <div class="docstat"><b>Passport</b><span class="doc-pill pill-missing">Needed — upload it</span></div>
-                    <div class="docstat"><b>Latest transcript</b><span class="doc-pill pill-missing">Needed — upload it</span></div>
+                    <div class="docstat" data-doc-row="passport"><b>Passport</b><span class="doc-pill pill-missing" data-doc-pill>Needed — upload it</span><p class="doc-file-note" data-doc-note hidden></p><div><button type="button" class="btn btn-brand btn-sm" data-doc-upload="passport">Upload</button><input type="file" class="sr-only" data-doc-input="passport" aria-label="Upload your passport scan" /></div></div>
+                    <div class="docstat" data-doc-row="transcript"><b>Latest transcript</b><span class="doc-pill pill-missing" data-doc-pill>Needed — upload it</span><p class="doc-file-note" data-doc-note hidden></p><div><button type="button" class="btn btn-brand btn-sm" data-doc-upload="transcript">Upload</button><input type="file" class="sr-only" data-doc-input="transcript" aria-label="Upload your latest transcript" /></div></div>
                     <div class="docstat"><b>Financial proof</b><span class="doc-pill pill-later">Needed later — visa stage</span></div>
                     <div class="docstat"><b>Certificates / degree</b><span class="doc-pill pill-ok">Received ✓</span></div>
                     <div class="docstat"><b>English test score</b><span class="doc-pill pill-ok">Received ✓</span></div>
@@ -1543,12 +1560,12 @@
           <div id="adminPanel" hidden>
             <div class="clean-shell">
               <nav class="icon-rail" aria-label="Office portal sections">
-                <button type="button" class="rail-btn is-active" data-ppage="home" aria-label="Home" title="Home"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="tasks" aria-label="Office tasks" title="Tasks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4 12.5 2.5 2.5L11 10.5M4 19l2.5 2.5L11 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6h6M14 13h6M14 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-badge">3</span></button>
-                <button type="button" class="rail-btn" data-ppage="applications" aria-label="Applications pipeline" title="Applications"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13H7V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v5h5M9.5 13h5M9.5 17h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="students" aria-label="Students" title="Students"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8.5" r="3.5" stroke="currentColor" stroke-width="2"/><path d="M2.5 20c.9-3.2 3.3-4.8 6.5-4.8s5.6 1.6 6.5 4.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 5.6a3.5 3.5 0 0 1 0 5.8M18.4 15.6c1.7.7 2.7 2.1 3.1 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="messages" aria-label="Messages" title="Messages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="settings" aria-label="Settings" title="Settings"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+                <button type="button" class="rail-btn is-active" data-ppage="home" aria-label="Home" title="Home"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-label">Home</span></button>
+                <button type="button" class="rail-btn" data-ppage="tasks" aria-label="Office tasks" title="Tasks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4 12.5 2.5 2.5L11 10.5M4 19l2.5 2.5L11 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6h6M14 13h6M14 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-label">Tasks</span><span class="rail-badge">3</span></button>
+                <button type="button" class="rail-btn" data-ppage="applications" aria-label="Applications pipeline" title="Applications"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13H7V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v5h5M9.5 13h5M9.5 17h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-label">Applications</span></button>
+                <button type="button" class="rail-btn" data-ppage="students" aria-label="Students" title="Students"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8.5" r="3.5" stroke="currentColor" stroke-width="2"/><path d="M2.5 20c.9-3.2 3.3-4.8 6.5-4.8s5.6 1.6 6.5 4.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 5.6a3.5 3.5 0 0 1 0 5.8M18.4 15.6c1.7.7 2.7 2.1 3.1 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-label">Students</span></button>
+                <button type="button" class="rail-btn" data-ppage="messages" aria-label="Messages" title="Messages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-label">Messages</span></button>
+                <button type="button" class="rail-btn" data-ppage="settings" aria-label="Settings" title="Settings"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-label">Settings</span></button>
               </nav>
               <div class="portal-pages">
                 <!-- Office home page -->
@@ -1577,17 +1594,17 @@
                         <li class="task-row">
                           <span class="task-dot is-open" aria-hidden="true">!</span>
                           <div class="task-body"><b>Check documents for AX-2026-0148</b><span>Test Student · Sample 2 — BBA (Business) is at “Documents checked”.</span></div>
-                          <span class="task-pill pill-high">Do first</span>
+                          <span class="task-pill pill-action-t">To do</span>
                         </li>
                         <li class="task-row">
                           <span class="task-dot is-open" aria-hidden="true">!</span>
                           <div class="task-body"><b>Verify sponsor details when the form lands</b><span>Test Student · Sample 1 — MS Computer Science. The student has the form link in their messages.</span></div>
-                          <span class="task-pill pill-action-t">Waiting on student</span>
+                          <span class="task-pill pill-action-t">To do</span>
                         </li>
                         <li class="task-row">
                           <span class="task-dot is-open" aria-hidden="true">!</span>
                           <div class="task-body"><b>Chase the university for a decision update</b><span>Sample Student B · AX-2026-0151 — filed 3 weeks ago, still reviewing.</span></div>
-                          <span class="task-pill pill-info-t">This week</span>
+                          <span class="task-pill pill-action-t">To do</span>
                         </li>
                         <li class="task-row is-done">
                           <span class="task-dot is-done" aria-hidden="true">✓</span>
@@ -1618,7 +1635,6 @@
                 <div class="portal-page" data-page="tasks" hidden>
                 <div class="portal-panel" id="admin-tasks">
                   <div class="panel-head">
-                    <span class="panel-kicker">A</span>
                     <div>
                       <h3>Office tasks</h3>
                       <p>What the team must do next, one row per task, each tied to a student ID. (Sample queue.)</p>
@@ -1653,7 +1669,6 @@
                 <div class="portal-page" data-page="students" hidden>
                 <div class="portal-panel" id="admin-students">
                   <div class="panel-head">
-                    <span class="panel-kicker">B</span>
                     <div>
                       <h3>Students</h3>
                       <p>One row per student: ID, program, stage, and the next task — so any team member can pick up any file. (Sample rows.)</p>
@@ -1661,10 +1676,9 @@
                   </div>
                   <div class="stu-head" aria-hidden="true"><span>Student</span><span>Student ID</span><span>Program</span><span>Stage</span><span>Next task</span></div>
                   <div class="stu-row"><b>Test Student</b><span class="stu-id">AX-2026-0148</span><span>MS Computer Science</span><span><span class="task-pill pill-info-t">University reviewing</span></span><span>Verify sponsor form</span></div>
-                  <div class="stu-row"><b>Test Student</b><span class="stu-id">AX-2026-0148</span><span>BBA (Business)</span><span><span class="task-pill pill-action-t">Documents checked</span></span><span>Passport + transcript from student</span></div>
                   <div class="stu-row"><b>Sample Student B</b><span class="stu-id">AX-2026-0151</span><span>Sample program</span><span><span class="task-pill pill-info-t">Filed</span></span><span>Chase university update</span></div>
                   <div class="stu-row"><b>Sample Student C</b><span class="stu-id">AX-2026-0157</span><span>Sample program</span><span><span class="task-pill pill-done-t">Offer letter</span></span><span>Send deposit guidance</span></div>
-                  <div class="stu-row"><b>Sample Student D</b><span class="stu-id">AX-2026-0163</span><span>Sample program</span><span><span class="task-pill pill-action-t">Profile started</span></span><span>Send document checklist</span></div>
+                  <div class="stu-row"><b>Sample Student D</b><span class="stu-id">AX-2026-0163</span><span>Sample program</span><span><span class="task-pill pill-action-t">Application received</span></span><span>Send document checklist</span></div>
                 </div>
                 </div>
 
@@ -1672,14 +1686,13 @@
                 <div class="portal-page" data-page="applications" hidden>
                 <div class="portal-panel" id="admin-pipeline">
                   <div class="panel-head">
-                    <span class="panel-kicker">C</span>
                     <div>
                       <h3>Pipeline</h3>
                       <p>Every application sits in exactly one stage — the same stages the student sees on their tracker.</p>
                     </div>
                   </div>
                   <div class="track-line track-line-admin" aria-label="Pipeline stages">
-                    <span>Profile started · 1</span><i>→</i><span>Documents checked · 1</span><i>→</i><span>Filed · 1</span><i>→</i><span>University reviewing · 1</span><i>→</i><span>Offer letter · 1</span>
+                    <span>Application received · 1</span><i>→</i><span>Documents checked · 1</span><i>→</i><span>Filed · 1</span><i>→</i><span>University reviewing · 1</span><i>→</i><span>Offer letter · 1</span><i>→</i><span>Final offer letter · 0</span>
                   </div>
                 </div>
                 </div>
@@ -1740,7 +1753,7 @@
           <div class="sec-head">
             <div>
               <h2>Find universities that fit your budget and profile</h2>
-              <p>Tell us where you want to go, what you want to study, your grades and English score, and the most tuition you can pay per year. The list below then shows <strong>only</strong> the universities that fit you. A school whose tuition is not listed yet is never hidden by a budget — unknown is not the same as too expensive.</p>
+              <p>Tell us where you want to go, what you want to study, your grades and English score, and the most tuition you can pay per year. The list below then shows <strong>only</strong> the universities that fit you. A school whose tuition is not listed yet is never hidden by a budget — unknown is not the same as too expensive. Your grades and English score are checked by our team against each school's entry requirements; no school is hidden by a score rule we haven't verified.</p>
             </div>
             <span class="sec-note">Your answers filter the list — nothing is sent or saved</span>
           </div>
@@ -1946,7 +1959,7 @@
               <p>Every student sees the same journey, stage by stage — no guessing, no chasing emails.</p>
             </div>
             <div class="track-line" aria-label="Application journey stages">
-              <span>Profile complete</span><i>→</i><span>Documents reviewed</span><i>→</i><span>Filed</span><i>→</i><span>University decision</span><i>→</i><span>Offer letter</span><i>→</i><span>Deposit &amp; visa support</span><i>→</i><span>Fly</span>
+              <span>Application received</span><i>→</i><span>Documents checked</span><i>→</i><span>Filed</span><i>→</i><span>University reviewing</span><i>→</i><span>Offer letter</span><i>→</i><span>Final offer letter</span>
             </div>
           </div>
         </div>
@@ -2131,6 +2144,7 @@
                 <p style="margin-top:10px"><button type="button" class="btn btn-ghost btn-sm" id="btnPreviewMessages">Preview it — open the test login</button> <span class="fine-print">See sample messages and sample fill-in forms in the demo student view.</span></p>
               </div>
               <div class="summary-box" id="summaryBox"></div>
+              <p style="margin-top:16px;font-size:14px;color:var(--ink-2)"><b style="color:var(--ink)">Keep it private:</b> This file holds your passport details — send it only to our office (WhatsApp or info@applyxplore.com). We keep it in your student file and never share it.</p>
               <div class="form-actions" style="margin-top:18px">
                 <button type="button" class="btn btn-brand" id="btnDownload">Download application package (.txt)</button>
                 <button type="button" class="btn btn-ghost" id="btnCopy">Copy summary</button>
@@ -3516,6 +3530,12 @@
           var desc = row.getAttribute("data-home-desc") || (descEl ? descEl.textContent.trim() : "");
           var li = document.createElement("li");
           li.className = "task-row";
+          if (row.id) {
+            li.setAttribute("data-task-id", row.id);
+            li.setAttribute("tabindex", "0");
+            li.setAttribute("role", "button");
+            li.setAttribute("aria-label", "Open this task on the Tasks page");
+          }
           li.innerHTML = '<span class="task-dot is-open" aria-hidden="true">!</span><div class="task-body"><b></b><span></span></div><span class="task-pill pill-action-t">To do</span>';
           li.querySelector(".task-body b").textContent = title;
           li.querySelector(".task-body span").textContent = desc;
@@ -3523,6 +3543,39 @@
         });
       }
       window.axRefreshHomePreview = refreshHomePreview;
+      /* Home preview rows are real controls: activating one opens the
+         Tasks page at that exact task, scrolls to it, highlights it
+         briefly, and — for a form task — opens the form ready to fill. */
+      function axOpenTask(taskId) {
+        if (!taskId) return;
+        if (window.axShowPortalPage) window.axShowPortalPage("tasks");
+        setTimeout(function () {
+          var el = document.getElementById(taskId);
+          if (!el) return;
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          el.classList.add("task-highlight");
+          setTimeout(function () { el.classList.remove("task-highlight"); }, 1800);
+          var formEl = el.querySelector("[data-task-form]");
+          var formBtn = el.querySelector(".task-open-form");
+          if (formEl && formBtn && formEl.hidden) {
+            setTimeout(function () { formBtn.click(); }, 400);
+          }
+        }, 80);
+      }
+      window.axOpenTask = axOpenTask;
+      (function () {
+        var preview = document.getElementById("homePreviewList");
+        if (!preview) return;
+        preview.addEventListener("click", function (e) {
+          var row = e.target && e.target.closest ? e.target.closest("[data-task-id]") : null;
+          if (row) axOpenTask(row.getAttribute("data-task-id"));
+        });
+        preview.addEventListener("keydown", function (e) {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          var row = e.target && e.target.closest ? e.target.closest("[data-task-id]") : null;
+          if (row) { e.preventDefault(); axOpenTask(row.getAttribute("data-task-id")); }
+        });
+      })();
       var msgRemaining = 2;
       var msgCountEl = document.getElementById("msgActionCount");
       function refreshMsgCount() {
@@ -3627,6 +3680,55 @@
           var row = f.closest ? f.closest(".task-row") : null;
           var tn = row ? row.querySelector("[data-task-done-note]") : null;
           if (tn) tn.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      });
+      /* ==================== Documents page uploads (demo) ====================
+         A "Needed" document row carries its own Upload button. Choosing a
+         file flips the row to Received, shows the file name with a demo
+         note, and completes the matching Tasks-page upload task through
+         the same path the form tasks use — the task moves to Done and
+         every count (Home card, rail badge, Tasks header) updates at
+         once. Demo only: the file itself goes nowhere. */
+      var axDocsDone = {};
+      function axMarkUploadDone(docKey) {
+        var taskId = docKey === "passport" ? "taskPassport" : docKey === "transcript" ? "taskTranscript" : null;
+        if (!taskId || axDocsDone[docKey]) return;
+        axDocsDone[docKey] = true;
+        var taskEl = document.getElementById(taskId);
+        if (!taskEl || taskEl.classList.contains("is-done")) return;
+        taskEl.classList.add("is-done");
+        var dotEl = taskEl.querySelector(".task-dot");
+        if (dotEl) { dotEl.textContent = "✓"; dotEl.classList.remove("is-open"); dotEl.classList.add("is-done"); }
+        var pillEl = taskEl.querySelector(".task-pill");
+        if (pillEl) { pillEl.textContent = "Done ✓"; pillEl.className = "task-pill pill-done-t"; }
+        var goBtn = taskEl.querySelector("[data-gopage]");
+        if (goBtn) { goBtn.textContent = "Done ✓"; goBtn.disabled = true; }
+        if (taskRemaining > 0) { taskRemaining -= 1; refreshTaskCounts(); }
+        var doneList = document.getElementById("taskDoneList");
+        if (doneList && taskEl.parentNode !== doneList) doneList.appendChild(taskEl);
+        refreshHomePreview();
+      }
+      Array.prototype.forEach.call(document.querySelectorAll("[data-doc-upload]"), function (btn) {
+        btn.addEventListener("click", function () {
+          var input = document.querySelector('[data-doc-input="' + btn.getAttribute("data-doc-upload") + '"]');
+          if (input) input.click();
+        });
+      });
+      Array.prototype.forEach.call(document.querySelectorAll("[data-doc-input]"), function (input) {
+        input.addEventListener("change", function () {
+          var file = input.files && input.files[0];
+          if (!file) return;
+          var key = input.getAttribute("data-doc-input");
+          var rowEl = input.closest ? input.closest("[data-doc-row]") : null;
+          if (rowEl) {
+            var pill = rowEl.querySelector("[data-doc-pill]");
+            if (pill) { pill.textContent = "Received ✓"; pill.classList.remove("pill-missing"); pill.classList.add("pill-ok"); }
+            var note = rowEl.querySelector("[data-doc-note]");
+            if (note) { note.textContent = file.name + " — (Demo — nothing is uploaded or saved)"; note.hidden = false; }
+            var upBtn = rowEl.querySelector("[data-doc-upload]");
+            if (upBtn) { upBtn.textContent = "Uploaded ✓"; upBtn.disabled = true; }
+          }
+          axMarkUploadDone(key);
         });
       });
       var previewBtn = document.getElementById("btnPreviewMessages");
@@ -4194,7 +4296,7 @@
           b.addEventListener("click", function () { axShowPage(panel, role, b.getAttribute("data-ppage")); });
         });
       });
-      /* In-portal shortcuts (See all tasks, See documents, Browse…) */
+      /* In-portal shortcuts (See all tasks, Upload in Documents, Browse…) */
       Array.prototype.forEach.call(document.querySelectorAll("#studentView [data-gopage]"), function (b) {
         b.addEventListener("click", function () { window.axShowPortalPage(b.getAttribute("data-gopage")); });
       });
