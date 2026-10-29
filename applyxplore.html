@@ -840,6 +840,32 @@
       #studentView .task-dot.is-done { background: var(--brand); border-color: var(--brand); color: #fff; }
       #studentView .task-row { padding: 15px 2px; }
       .steps-foot { margin-top: 14px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+      .task-group-label { font-size: 12.5px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin: 20px 0 2px; }
+      .task-group-label:first-of-type { margin-top: 4px; }
+      /* Inline form tasks on the Tasks page: the form expands full-width
+         inside its own task row, so a form task is completed right there. */
+      .task-form { flex: 1 1 100%; width: 100%; }
+      .task-row .msg-done-note { flex: 1 1 100%; width: 100%; }
+      /* ---------- Signed-in mode: portal only, no public chrome ----------
+         While signed in, the public site disappears completely: no public
+         top header, no public left sidebar, no hero / marketing sections,
+         no public footer, no phone dock. The portal's own strip is the
+         only header and the icon rail the only sidebar; the portal starts
+         at the top of the screen. Signing out removes the class and the
+         public site returns exactly as it was. */
+      body.signed-in .topbar { display: none; }
+      body.signed-in #appSidebar { display: none !important; }
+      body.signed-in footer { display: none; }
+      body.signed-in .dock { display: none !important; }
+      body.signed-in .app-layout { grid-template-columns: 1fr; }
+      body.signed-in #studentView { margin-top: 0; min-height: 100vh; }
+      body.signed-in .icon-rail { top: 16px; }
+      body.signed-in .hero, body.signed-in #how, body.signed-in #documents, body.signed-in #faq { display: none !important; }
+      /* Catalogue trio (destinations, finder, universities) lives inside
+         the portal Programs page while signed in. */
+      .portal-catalog-host section { padding-top: 30px; }
+      .portal-catalog-host .wrap { max-width: none; padding: 0; }
+      .portal-catalog-host:empty { display: none; }
       @media (max-width: 760px) {
         .clean-shell { grid-template-columns: 1fr; }
         .icon-rail {
@@ -1010,11 +1036,11 @@
             <div class="clean-shell">
               <nav class="icon-rail" aria-label="Student portal sections">
                 <button type="button" class="rail-btn is-active" data-ppage="home" aria-label="Home" title="Home"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="programs" aria-label="Programs and schools" title="Programs &amp; schools"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+                <button type="button" class="rail-btn" data-ppage="search" aria-label="Search university" title="Search university"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
                 <button type="button" class="rail-btn" data-ppage="applications" aria-label="My applications" title="My applications"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13H7V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v5h5M9.5 13h5M9.5 17h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
                 <button type="button" class="rail-btn" data-ppage="tasks" aria-label="My tasks" title="My tasks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4 12.5 2.5 2.5L11 10.5M4 19l2.5 2.5L11 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6h6M14 13h6M14 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="rail-badge"><span class="js-task-count">4</span></span></button>
                 <button type="button" class="rail-btn" data-ppage="documents" aria-label="My documents" title="My documents"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v10m0 0 3.5-3.5M12 13 8.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-                <button type="button" class="rail-btn" data-ppage="messages" aria-label="Messages" title="Messages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-badge">2</span></button>
+                <button type="button" class="rail-btn" data-ppage="messages" aria-label="Messages" title="Messages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-badge" id="msgRailBadge">2</span></button>
                 <button type="button" class="rail-btn" data-ppage="saved" aria-label="Saved universities" title="Saved universities"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20.5C7 16.5 3.5 13.3 3.5 9.6A4.6 4.6 0 0 1 12 6.7a4.6 4.6 0 0 1 8.5 2.9c0 3.7-3.5 6.9-8.5 10.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="rail-badge" id="savedRailBadge">0</span></button>
                 <button type="button" class="rail-btn" data-ppage="profile" aria-label="My profile" title="My profile"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.2-3.6 4.2-5.4 8-5.4s6.8 1.8 8 5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
               </nav>
@@ -1104,7 +1130,8 @@
                       </div>
                       <span class="msg-count"><span class="js-task-count">4</span>&nbsp;open</span>
                     </div>
-                    <ul class="task-list">
+                    <p class="task-group-label">To do — in order</p>
+                    <ul class="task-list" id="taskTodoList">
                       <li class="task-row">
                         <span class="task-dot is-open" aria-hidden="true">!</span>
                         <div class="task-body">
@@ -1127,20 +1154,75 @@
                         <span class="task-dot is-open" aria-hidden="true">!</span>
                         <div class="task-body">
                           <b>Fill in your sponsor details form</b>
-                          <span>For Sample 1 — MS Computer Science. Sent by our office in your messages for that application — it takes about 2 minutes.</span>
+                          <span>For Sample 1 — MS Computer Science. Open it right here and send it — it takes about 2 minutes. The same form is also in your messages for that application.</span>
                         </div>
                         <span class="task-pill pill-action-t" data-task-pill>To do</span>
-                        <button type="button" class="btn btn-brand btn-sm task-btn task-open-form" data-form="formSponsor">Open the form</button>
+                        <button type="button" class="btn btn-brand btn-sm task-btn task-open-form" data-form="formSponsor" aria-expanded="false">Open the form</button>
+                        <form class="msg-form task-form" id="taskFormSponsor" data-task-form="formSponsor" hidden>
+                          <p class="mf-title">Sponsor details form <span>For Sample 1 — MS Computer Science. In your real account this sends straight to our team.</span></p>
+                          <div class="grid2">
+                            <div class="field"><label class="req" for="tsp-name">Sponsor's full name (as on passport / ID)</label><input id="tsp-name" required autocomplete="off" placeholder="e.g. Sponsor's full name" /></div>
+                            <div class="field"><label class="req" for="tsp-rel">Relationship to you</label>
+                              <select id="tsp-rel" required>
+                                <option value="">Select…</option>
+                                <option>Father</option>
+                                <option>Mother</option>
+                                <option>Brother / Sister</option>
+                                <option>Other family member</option>
+                                <option>Other sponsor</option>
+                              </select></div>
+                          </div>
+                          <div class="grid2">
+                            <div class="field"><label class="req" for="tsp-contact">Sponsor's phone or email</label><input id="tsp-contact" required autocomplete="off" placeholder="Phone or email we can verify" /></div>
+                            <div class="field"><label class="req" for="tsp-income">Sponsor's yearly income range</label>
+                              <select id="tsp-income" required>
+                                <option value="">Select…</option>
+                                <option>Under $20,000 / year</option>
+                                <option>$20,000 – $40,000 / year</option>
+                                <option>$40,000 – $70,000 / year</option>
+                                <option>Over $70,000 / year</option>
+                                <option>Not sure — please advise me</option>
+                              </select></div>
+                          </div>
+                          <div class="form-actions">
+                            <button type="submit" class="btn btn-amber btn-sm">Send this form to our team</button>
+                            <span class="fine-print">Demo: pressing send shows you what the student sees — nothing is saved or sent in this preview.</span>
+                          </div>
+                        </form>
+                        <p class="msg-done-note" data-task-done-note hidden><b>✓ Done — thank you.</b> Your sponsor details are with our team for this application. <span>(Demo confirmation.)</span></p>
                       </li>
                       <li class="task-row" id="taskAddress">
                         <span class="task-dot is-open" aria-hidden="true">!</span>
                         <div class="task-body">
                           <b>Confirm your address details</b>
-                          <span>For Sample 2 — BBA (Business). Sent by our office in your messages for that application — the short check form.</span>
+                          <span>For Sample 2 — BBA (Business). Open the short check form right here and send it. The same form is also in your messages for that application.</span>
                         </div>
                         <span class="task-pill pill-action-t" data-task-pill>To do</span>
-                        <button type="button" class="btn btn-brand btn-sm task-btn task-open-form" data-form="formAddress">Open the form</button>
+                        <button type="button" class="btn btn-brand btn-sm task-btn task-open-form" data-form="formAddress" aria-expanded="false">Open the form</button>
+                        <form class="msg-form task-form" id="taskFormAddress" data-task-form="formAddress" hidden>
+                          <p class="mf-title">Address check form <span>For Sample 2 — BBA (Business). In your real account this sends straight to our team.</span></p>
+                          <div class="field"><label class="req" for="tad-line">Your current home address</label><input id="tad-line" required autocomplete="off" placeholder="House, road, area" /></div>
+                          <div class="grid3">
+                            <div class="field"><label class="req" for="tad-city">City</label><input id="tad-city" required autocomplete="off" /></div>
+                            <div class="field"><label for="tad-post">Postcode</label><input id="tad-post" autocomplete="off" /></div>
+                            <div class="field"><label class="req" for="tad-same">Is this the address on your passport?</label>
+                              <select id="tad-same" required>
+                                <option value="">Select…</option>
+                                <option>Yes — same address</option>
+                                <option>No — different address</option>
+                                <option>My passport has no address / not sure</option>
+                              </select></div>
+                          </div>
+                          <div class="form-actions">
+                            <button type="submit" class="btn btn-amber btn-sm">Send this form to our team</button>
+                            <span class="fine-print">Demo: pressing send shows you what the student sees — nothing is saved or sent in this preview.</span>
+                          </div>
+                        </form>
+                        <p class="msg-done-note" data-task-done-note hidden><b>✓ Done — thank you.</b> Your address check is with our team for this application. <span>(Demo confirmation.)</span></p>
                       </li>
+                    </ul>
+                    <p class="task-group-label">For later</p>
+                    <ul class="task-list">
                       <li class="task-row">
                         <span class="task-dot" aria-hidden="true">i</span>
                         <div class="task-body">
@@ -1149,6 +1231,9 @@
                         </div>
                         <span class="task-pill pill-info-t">For later</span>
                       </li>
+                    </ul>
+                    <p class="task-group-label">Done</p>
+                    <ul class="task-list" id="taskDoneList">
                       <li class="task-row is-done">
                         <span class="task-dot is-done" aria-hidden="true">✓</span>
                         <div class="task-body">
@@ -1158,12 +1243,51 @@
                         <span class="task-pill pill-done-t">Done ✓</span>
                       </li>
                     </ul>
-                    <p class="steps-foot">“Open the form” takes you to that application's message, where the form belongs — submit it there and the task ticks to Done here.</p>
+                    <p class="steps-foot">“Open the form” opens the form right here on this page — fill it in and send it, and the task moves to Done below. The same form also sits in that application's messages; sending it in either place completes it in both.</p>
                   </div>
                 </div>
 
-                <!-- Applications page -->
+                <!-- Applications page: my 4 free choices on top, trackers below -->
                 <div class="portal-page" data-page="applications" hidden>
+                <div class="portal-panel" id="portal-programs" style="margin-bottom:16px">
+                  <div class="panel-head">
+                    <div>
+                      <h3>My choices — 4 free</h3>
+                      <p>Your 4 free choices, each on its own card. Add a program from the Search university tab and it takes the next free slot — up to 4 applications, filed free by our team.</p>
+                    </div>
+                    <a class="btn btn-ghost btn-sm" href="#universities">Browse programs</a>
+                  </div>
+                  <div class="choice-grid">
+                    <article class="choice-card">
+                      <div class="sc-top"><span class="choice-slot">Choice 1</span><span class="free-badge">Filed</span></div>
+                      <h4>MS Computer Science</h4>
+                      <p class="sc-meta">Example University · sample</p>
+                      <p class="sc-progs">Master's · Fall 2027 intake</p>
+                      <div class="sc-row"><span>Application fee</span><b>$0 through ApplyXplore</b></div>
+                      <div class="sc-row"><span>Status</span><b>University reviewing</b></div>
+                    </article>
+                    <article class="choice-card">
+                      <div class="sc-top"><span class="choice-slot">Choice 2</span><span class="free-badge">In preparation</span></div>
+                      <h4>BBA (Business)</h4>
+                      <p class="sc-meta">Example College · sample</p>
+                      <p class="sc-progs">Bachelor's · Fall 2027 intake</p>
+                      <div class="sc-row"><span>Application fee</span><b>$0 through ApplyXplore</b></div>
+                      <div class="sc-row"><span>Status</span><b>Documents checked</b></div>
+                    </article>
+                    <article class="choice-card is-empty">
+                      <div class="sc-top"><span class="choice-slot">Choice 3</span><span class="tag">Free slot</span></div>
+                      <h4>No program yet</h4>
+                      <p class="sc-progs">This slot is free. Pick a university or program from the Search university tab and tap “Apply” or “Save” on its card.</p>
+                      <a class="btn btn-brand btn-sm" href="#universities">Add a program</a>
+                    </article>
+                    <article class="choice-card is-empty">
+                      <div class="sc-top"><span class="choice-slot">Choice 4</span><span class="tag">Free slot</span></div>
+                      <h4>No program yet</h4>
+                      <p class="sc-progs">This slot is free. Your 4 choices can be in one country or across countries — pick your best 4.</p>
+                      <a class="btn btn-brand btn-sm" href="#universities">Add a program</a>
+                    </article>
+                  </div>
+                </div>
                 <div class="portal-panel" id="portal-apps">
                   <div class="panel-head">
                     <span class="panel-kicker">2</span>
@@ -1199,48 +1323,22 @@
                 </div>
                 </div>
 
-                <!-- Programs page -->
-                <div class="portal-page" data-page="programs" hidden>
-                <div class="portal-panel" id="portal-programs">
-                  <div class="panel-head">
-                    <span class="panel-kicker">3</span>
-                    <div>
-                      <h3>My programs — my 4 free choices</h3>
-                      <p>Each choice is its own card. Add a program from the catalogue below and it takes the next free slot — up to 4 applications, filed free by our team.</p>
+                <!-- Search university page: the ONE search + filter tab.
+                     The full catalogue (search box, country / level / field /
+                     intake / budget filters, destination chips and the
+                     university cards) is moved in here while signed in. -->
+                <div class="portal-page" data-page="search" hidden>
+                  <div class="portal-panel">
+                    <div class="panel-head">
+                      <div>
+                        <h3>Search university</h3>
+                        <p>Search and filter every listed university in one place — by name or program, country, level, field, intake and tuition budget. Each card shows its real application fee and tuition, with Save and Apply. Apply pops that university into your choices, the same as on the public catalogue.</p>
+                      </div>
+                      <span class="msg-count">One search · all filters</span>
                     </div>
-                    <a class="btn btn-ghost btn-sm" href="#universities">Browse programs</a>
+                    <p style="font-size:14.5px;color:var(--ink-2)">The search and filters are right below — pick a country, set your budget, and tap Apply on the university you want.</p>
                   </div>
-                  <div class="choice-grid">
-                    <article class="choice-card">
-                      <div class="sc-top"><span class="choice-slot">Choice 1</span><span class="free-badge">Filed</span></div>
-                      <h4>MS Computer Science</h4>
-                      <p class="sc-meta">Example University · sample</p>
-                      <p class="sc-progs">Master's · Fall 2027 intake</p>
-                      <div class="sc-row"><span>Application fee</span><b>$0 through ApplyXplore</b></div>
-                      <div class="sc-row"><span>Status</span><b>University reviewing</b></div>
-                    </article>
-                    <article class="choice-card">
-                      <div class="sc-top"><span class="choice-slot">Choice 2</span><span class="free-badge">In preparation</span></div>
-                      <h4>BBA (Business)</h4>
-                      <p class="sc-meta">Example College · sample</p>
-                      <p class="sc-progs">Bachelor's · Fall 2027 intake</p>
-                      <div class="sc-row"><span>Application fee</span><b>$0 through ApplyXplore</b></div>
-                      <div class="sc-row"><span>Status</span><b>Documents checked</b></div>
-                    </article>
-                    <article class="choice-card is-empty">
-                      <div class="sc-top"><span class="choice-slot">Choice 3</span><span class="tag">Free slot</span></div>
-                      <h4>No program yet</h4>
-                      <p class="sc-progs">This slot is free. Pick a university or program from the catalogue and tap “Apply” or “Save” on its card.</p>
-                      <a class="btn btn-brand btn-sm" href="#universities">Add a program</a>
-                    </article>
-                    <article class="choice-card is-empty">
-                      <div class="sc-top"><span class="choice-slot">Choice 4</span><span class="tag">Free slot</span></div>
-                      <h4>No program yet</h4>
-                      <p class="sc-progs">This slot is free. Your 4 choices can be in one country or across countries — pick your best 4.</p>
-                      <a class="btn btn-brand btn-sm" href="#universities">Add a program</a>
-                    </article>
-                  </div>
-                </div>
+                  <div id="portalCatalogHost" class="portal-catalog-host" aria-label="Find and browse programmes"></div>
                 </div>
 
                 <!-- Saved page -->
@@ -1254,7 +1352,7 @@
                     </div>
                     <a class="btn btn-ghost btn-sm" href="#universities">Browse universities</a>
                   </div>
-                  <p id="savedEmpty" style="font-size:14.5px;color:var(--ink-2)">You haven't saved any universities yet. Browse the catalogue below and tap “Save” on the ones you like — they will show up here, card by card.</p>
+                  <p id="savedEmpty" style="font-size:14.5px;color:var(--ink-2)">You haven't saved any universities yet. Open the Search university tab and tap “Save” on the ones you like — they will show up here, card by card.</p>
                   <div class="saved-grid" id="savedList"></div>
                 </div>
                 </div>
@@ -1266,16 +1364,16 @@
                     <span class="panel-kicker">5</span>
                     <div>
                       <h3>My documents</h3>
-                      <p>One list for every document, with its status. Uploads happen inside Register free; this panel shows what our team holds for you. (Sample statuses.)</p>
+                      <p>One list for every document, in checklist order: needed first, then received, then with our team. Uploads happen inside Register free; this panel shows what our team holds for you. (Sample statuses.)</p>
                     </div>
                   </div>
                   <div class="docstat-grid">
                     <div class="docstat"><b>Passport</b><span class="doc-pill pill-missing">Needed — upload it</span></div>
                     <div class="docstat"><b>Latest transcript</b><span class="doc-pill pill-missing">Needed — upload it</span></div>
+                    <div class="docstat"><b>Financial proof</b><span class="doc-pill pill-later">Needed later — visa stage</span></div>
                     <div class="docstat"><b>Certificates / degree</b><span class="doc-pill pill-ok">Received ✓</span></div>
                     <div class="docstat"><b>English test score</b><span class="doc-pill pill-ok">Received ✓</span></div>
                     <div class="docstat"><b>Statement of purpose</b><span class="doc-pill pill-check">With our team — being checked</span></div>
-                    <div class="docstat"><b>Financial proof</b><span class="doc-pill pill-later">Needed later — visa stage</span></div>
                   </div>
                 </div>
                 </div>
@@ -3282,9 +3380,16 @@
       function setSignedIn(on) {
         signedIn = on;
         loginModal.hidden = true;
-        studentView.hidden = !on;
+        /* Signed in = portal only: the body class removes the public
+           header, sidebar, footer and dock, and axSyncAuthLayout moves
+           the catalogue into the portal and hides every public section.
+           Signing out reverses all of it. Land at the top — the portal
+           Home (Welcome + stat cards + next steps) is the starting point. */
+        document.body.classList.toggle("signed-in", on);
         loginBtn.textContent = on ? "Sign out (demo)" : "Student login";
-        if (on) { if (window.axShowHomeViewOnly) window.axShowHomeViewOnly(); studentView.scrollIntoView({ behavior: "smooth" }); }
+        if (window.axSyncAuthLayout) window.axSyncAuthLayout();
+        else studentView.hidden = !on;
+        window.scrollTo({ top: 0, behavior: on ? "smooth" : "auto" });
       }
       loginBtn.addEventListener("click", function () {
         if (signedIn) setSignedIn(false);
@@ -3319,6 +3424,60 @@
           msgCountEl.classList.add("is-clear");
         }
       }
+      /* One completion path for BOTH copies of each form — the copy on the
+         Tasks page and the copy in Messages. Sending either one completes
+         the task and the message together, exactly once: the task flips to
+         Done and moves into the Done group, the message shows Done, and
+         every count (Home stat card, rail badges, bell, page counts) moves
+         at the same moment. */
+      var axFormsDone = {};
+      function axSyncMsgBadges() {
+        var dot = document.getElementById("bellDot");
+        if (dot) { dot.textContent = msgRemaining; dot.style.display = msgRemaining > 0 ? "" : "none"; }
+        var rb = document.getElementById("msgRailBadge");
+        if (rb) { rb.textContent = msgRemaining; rb.style.display = msgRemaining > 0 ? "" : "none"; }
+      }
+      function axMarkFormDone(canonicalId) {
+        if (axFormsDone[canonicalId]) return false;
+        var taskId = canonicalId === "formSponsor" ? "taskSponsor" : canonicalId === "formAddress" ? "taskAddress" : null;
+        if (!taskId) return false;
+        axFormsDone[canonicalId] = true;
+        var msgForm = document.getElementById(canonicalId);
+        var item = msgForm && msgForm.closest ? msgForm.closest("[data-msg-item]") : null;
+        if (msgForm) msgForm.hidden = true;
+        if (item) {
+          item.classList.remove("is-action");
+          item.classList.add("is-done");
+          var pill = item.querySelector("[data-msg-pill]");
+          if (pill) { pill.textContent = "Done ✓"; pill.classList.remove("pill-action"); pill.classList.add("pill-done"); }
+          var mNote = item.querySelector("[data-done-note]");
+          if (mNote) mNote.hidden = false;
+          var openBtn = item.querySelector(".msg-open");
+          if (openBtn) { openBtn.textContent = "Form completed ✓"; openBtn.disabled = true; openBtn.setAttribute("aria-expanded", "false"); }
+        }
+        if (msgRemaining > 0) { msgRemaining -= 1; refreshMsgCount(); }
+        var taskEl = document.getElementById(taskId);
+        if (taskEl) {
+          var tForm = taskEl.querySelector("[data-task-form]");
+          if (tForm) tForm.hidden = true;
+          var tNote = taskEl.querySelector("[data-task-done-note]");
+          if (tNote) tNote.hidden = false;
+          if (!taskEl.classList.contains("is-done")) {
+            taskEl.classList.add("is-done");
+            var dotEl = taskEl.querySelector(".task-dot");
+            if (dotEl) { dotEl.textContent = "✓"; dotEl.classList.remove("is-open"); dotEl.classList.add("is-done"); }
+            var tp = taskEl.querySelector("[data-task-pill]");
+            if (tp) { tp.textContent = "Done ✓"; tp.className = "task-pill pill-done-t"; }
+            if (taskRemaining > 0) { taskRemaining -= 1; refreshTaskCounts(); }
+          }
+          var tb = taskEl.querySelector(".task-btn");
+          if (tb) { tb.textContent = "Completed ✓"; tb.disabled = true; tb.setAttribute("aria-expanded", "false"); }
+          var doneList = document.getElementById("taskDoneList");
+          if (doneList && taskEl.parentNode !== doneList) doneList.appendChild(taskEl);
+        }
+        axSyncMsgBadges();
+        return true;
+      }
       Array.prototype.forEach.call(document.querySelectorAll(".msg-open"), function (btn) {
         btn.addEventListener("click", function () {
           var formEl = document.getElementById(btn.getAttribute("data-target"));
@@ -3340,34 +3499,30 @@
       Array.prototype.forEach.call(document.querySelectorAll("[data-fill-form]"), function (f) {
         f.addEventListener("submit", function (e) {
           e.preventDefault();
+          /* Sending the Messages copy completes the task everywhere too. */
+          axMarkFormDone(f.id);
           var item = f.closest ? f.closest("[data-msg-item]") : null;
-          f.hidden = true;
-          if (item) {
-            item.classList.remove("is-action");
-            item.classList.add("is-done");
-            var pill = item.querySelector("[data-msg-pill]");
-            if (pill) { pill.textContent = "Done ✓"; pill.classList.remove("pill-action"); pill.classList.add("pill-done"); }
-            var note = item.querySelector("[data-done-note]");
-            if (note) note.hidden = false;
-            var openBtn = item.querySelector(".msg-open");
-            if (openBtn) { openBtn.textContent = "Form completed ✓"; openBtn.disabled = true; openBtn.setAttribute("aria-expanded", "false"); }
-            if (msgRemaining > 0) { msgRemaining -= 1; refreshMsgCount(); }
-            var taskEl = document.getElementById(f.id === "formSponsor" ? "taskSponsor" : f.id === "formAddress" ? "taskAddress" : "no-task");
-            if (taskEl && !taskEl.classList.contains("is-done")) {
-              taskEl.classList.add("is-done");
-              var tp = taskEl.querySelector("[data-task-pill]");
-              if (tp) { tp.textContent = "Done ✓"; tp.className = "task-pill pill-done-t"; }
-              var tb = taskEl.querySelector(".task-btn");
-              if (tb) { tb.textContent = "Completed ✓"; tb.disabled = true; }
-              if (taskRemaining > 0) { taskRemaining -= 1; refreshTaskCounts(); }
-            }
-            if (note) note.scrollIntoView({ behavior: "smooth", block: "nearest" });
-          }
+          var note = item ? item.querySelector("[data-done-note]") : null;
+          if (note) note.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      });
+      /* The Tasks-page copies of the same two forms: sending one here
+         completes the message copy as well (same shared path). */
+      Array.prototype.forEach.call(document.querySelectorAll("[data-task-form]"), function (f) {
+        f.addEventListener("submit", function (e) {
+          e.preventDefault();
+          axMarkFormDone(f.getAttribute("data-task-form"));
+          var row = f.closest ? f.closest(".task-row") : null;
+          var tn = row ? row.querySelector("[data-task-done-note]") : null;
+          if (tn) tn.scrollIntoView({ behavior: "smooth", block: "nearest" });
         });
       });
       var previewBtn = document.getElementById("btnPreviewMessages");
       if (previewBtn) previewBtn.addEventListener("click", function () {
         if (signedIn) {
+          /* From the Register view (signed in): leave Register first so
+             the portal is visible, then open its Messages page. */
+          if (window.axShowHomeViewOnly) window.axShowHomeViewOnly();
           if (window.axShowPortalPage) window.axShowPortalPage("messages");
           var m = document.getElementById("messages");
           if (m) m.scrollIntoView({ behavior: "smooth" });
@@ -3378,9 +3533,9 @@
 
       /* ==================== Portal: role switch + task shortcuts ====================
          Student view and office/admin view are two panels in the same demo
-         portal. Switching is in-memory only, like the sign-in itself. Task
-         buttons for the two message forms scroll to Messages and open the
-         right form, so a task and its form are never in different places. */
+         portal. Switching is in-memory only, like the sign-in itself. Form
+         tasks open their form inline on the Tasks page (see the handlers
+         below), and the same form in Messages shares one completion path. */
       var roleStudentBtn = document.getElementById("roleStudent");
       var roleAdminBtn = document.getElementById("roleAdmin");
       var studentPanel = document.getElementById("studentPanel");
@@ -3399,15 +3554,23 @@
         setSignedIn(true);
         switchRole("admin");
       });
+      /* Form tasks open their form right here on the Tasks page — the
+         student never has to leave Tasks to complete one. */
       Array.prototype.forEach.call(document.querySelectorAll(".task-open-form"), function (b) {
         b.addEventListener("click", function () {
-          var targetId = b.getAttribute("data-form");
-          var formEl = document.getElementById(targetId);
-          if (window.axShowPortalPage) window.axShowPortalPage("messages");
-          var m = document.getElementById("messages");
-          if (m) m.scrollIntoView({ behavior: "smooth" });
-          var openBtn = document.querySelector('.msg-open[data-target="' + targetId + '"]');
-          if (openBtn && formEl && formEl.hidden) setTimeout(function () { openBtn.click(); }, 400);
+          var canonicalId = b.getAttribute("data-form");
+          var inlineId = canonicalId === "formSponsor" ? "taskFormSponsor" : canonicalId === "formAddress" ? "taskFormAddress" : null;
+          var formEl = inlineId ? document.getElementById(inlineId) : null;
+          if (!formEl) return;
+          var willShow = formEl.hidden;
+          formEl.hidden = !willShow;
+          b.setAttribute("aria-expanded", willShow ? "true" : "false");
+          b.textContent = willShow ? "Hide form" : "Open the form";
+          if (willShow) {
+            var first = formEl.querySelector("input, select");
+            if (first) first.focus({ preventScroll: true });
+            formEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
         });
       });
 
@@ -3497,7 +3660,7 @@
         return "";
       }
       function dockPortal(sectionId, label) {
-        var pageMap = { "portal-tasks": "tasks", "portal-apps": "applications", "portal-docs": "documents", "messages": "messages", "portal-programs": "programs", "portal-saved": "saved", "portal-profile": "profile" };
+        var pageMap = { "portal-tasks": "tasks", "portal-apps": "applications", "portal-docs": "documents", "messages": "messages", "portal-programs": "applications", "portal-saved": "saved", "portal-profile": "profile" };
         var pg = pageMap[sectionId] || "home";
         if (signedIn) {
           dockAddMsg("bot", "Here you go — opening " + label + " in your portal.", "Open " + label, function () { if (window.axShowPortalPage) window.axShowPortalPage(pg); dockScrollTo(studentView); });
@@ -3707,20 +3870,109 @@
         var t = document.getElementById(id);
         if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+      /* ---------- Signed-in mode: the portal is the whole app ----------
+         While signed in, the public site is gone: the body class (set in
+         setSignedIn) removes the public header, sidebar, footer and dock,
+         and here the public sections hide while the catalogue trio —
+         destinations, finder, universities — MOVES into the portal's
+         Search university page, so search + filters + cards live inside
+         the portal with the same data and behaviour. Register free, when
+         opened while signed in (office "+ Add new student", or Apply on
+         a card), shows on its own with no public homepage behind it, and
+         its Back button returns to the portal. Signing out moves the
+         catalogue back and restores the public site exactly as it was. */
+      var axRegisterOpen = false;
+      var axCatalogIds = ["destinations", "finder", "universities"];
+      var axCatalogHost = document.getElementById("portalCatalogHost");
+      var axCatalogHomeNext = document.getElementById("how");
+      function axIsCatalogEl(el) { return !!el && axCatalogIds.indexOf(el.id) !== -1; }
+      function axMoveCatalog(toPortal) {
+        if (toPortal) {
+          if (!axCatalogHost) return;
+          axCatalogIds.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) axCatalogHost.appendChild(el);
+          });
+        } else {
+          if (!axCatalogHomeNext || !axCatalogHomeNext.parentNode) return;
+          axCatalogIds.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) axCatalogHomeNext.parentNode.insertBefore(el, axCatalogHomeNext);
+          });
+        }
+      }
+      function axSyncAuthLayout() {
+        if (signedIn) {
+          axRegisterOpen = false;
+          if (axApply) axApply.hidden = true;
+          axMoveCatalog(true);
+          Array.prototype.forEach.call(axHomeEls, function (el) { el.hidden = !axIsCatalogEl(el); });
+          if (axStudentView) axStudentView.hidden = false;
+        } else {
+          axRegisterOpen = false;
+          if (axApply) axApply.hidden = true;
+          axMoveCatalog(false);
+          Array.prototype.forEach.call(axHomeEls, function (el) { el.hidden = false; });
+          if (axStudentView) axStudentView.hidden = true;
+        }
+      }
+      window.axSyncAuthLayout = axSyncAuthLayout;
       function axSetHomeVisible(on) {
+        if (signedIn) {
+          /* Public marketing sections never show while signed in; the
+             catalogue trio stays visible inside the portal's Search page
+             (its portal page hides/shows it), and the portal itself shows
+             unless Register free is open inside the signed-in context. */
+          Array.prototype.forEach.call(axHomeEls, function (el) { el.hidden = !axIsCatalogEl(el); });
+          if (axStudentView) axStudentView.hidden = axRegisterOpen;
+          return;
+        }
         Array.prototype.forEach.call(axHomeEls, function (el) { el.hidden = !on; });
         if (axStudentView) axStudentView.hidden = on ? !signedIn : true;
       }
       function axShowHomeViewOnly() {
+        axRegisterOpen = false;
         if (axApply) axApply.hidden = true;
         axSetHomeVisible(true);
       }
       function axShowHome(anchor) {
+        if (signedIn) {
+          /* Signed in, "home" navigation lands back inside the portal:
+             catalogue anchors open the Search university page, Documents
+             opens the portal documents page, everything else opens the
+             portal Home — the app's starting point. */
+          axRegisterOpen = false;
+          if (axApply) axApply.hidden = true;
+          axSetHomeVisible(true);
+          if (anchor === "universities" || anchor === "finder" || anchor === "destinations") {
+            if (window.axShowPortalPage) window.axShowPortalPage("search");
+            var t = document.getElementById(anchor);
+            if (t) setTimeout(function () { t.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
+          } else if (anchor === "documents") {
+            if (window.axShowPortalPage) window.axShowPortalPage("documents");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            if (window.axShowPortalPage) window.axShowPortalPage("home");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+          return;
+        }
         axShowHomeViewOnly();
         axSetActive(anchor || "top");
         axScrollToId(anchor || "top");
       }
       function axShowRegister() {
+        axRegisterOpen = true;
+        if (signedIn) {
+          /* Register inside the signed-in context: the portal hides, the
+             form shows alone, and the public chrome stays off (body
+             class) — no public homepage behind the form. */
+          if (axStudentView) axStudentView.hidden = true;
+          Array.prototype.forEach.call(axHomeEls, function (el) { if (!axIsCatalogEl(el)) el.hidden = true; });
+          if (axApply) axApply.hidden = false;
+          window.scrollTo(0, 0);
+          return;
+        }
         axSetHomeVisible(false);
         if (axApply) axApply.hidden = false;
         axSetActive("apply");
@@ -3794,7 +4046,7 @@
          show exactly one .portal-page at a time and set the strip title.
          Student and office panels each keep their own rail and pages. */
       var axPageTitles = {
-        student: { home: "Home", programs: "Programs & schools", applications: "My applications", tasks: "My tasks", documents: "My documents", messages: "Messages", saved: "Saved universities", profile: "My profile" },
+        student: { home: "Home", search: "Search university", applications: "My applications", tasks: "My tasks", documents: "My documents", messages: "Messages", saved: "Saved universities", profile: "My profile" },
         admin: { home: "Home", tasks: "Tasks", applications: "Applications", students: "Students", messages: "Messages", settings: "Settings" }
       };
       var axTitleEl = document.getElementById("portalPageTitle");
@@ -3802,6 +4054,8 @@
       function axCurrentRole() { return (adminPanel && !adminPanel.hidden) ? "admin" : "student"; }
       function axShowPage(panel, role, page) {
         if (!panel) return;
+        /* The old Programs page is gone: its choices live on Applications. */
+        if (page === "programs") page = "applications";
         var found = false;
         Array.prototype.forEach.call(panel.querySelectorAll(".portal-page"), function (p) {
           var on = p.getAttribute("data-page") === page;
@@ -3832,13 +4086,24 @@
       Array.prototype.forEach.call(document.querySelectorAll("#studentView [data-gopage]"), function (b) {
         b.addEventListener("click", function () { window.axShowPortalPage(b.getAttribute("data-gopage")); });
       });
-      /* Old in-portal anchor links now switch pages instead of scrolling. */
-      var axAnchorPages = { "#portal-docs": "documents", "#portal-apps": "applications", "#portal-programs": "programs", "#portal-saved": "saved", "#portal-profile": "profile", "#portal-tasks": "tasks", "#messages": "messages", "#admin-tasks": "tasks", "#admin-students": "students", "#admin-pipeline": "applications" };
+      /* Old in-portal anchor links now switch pages instead of scrolling.
+         Catalogue anchors (#universities / #finder / #destinations) open
+         the Search university page — that is where the catalogue lives
+         while signed in — and scroll to the section that was tapped. */
+      var axAnchorPages = { "#portal-docs": "documents", "#portal-apps": "applications", "#portal-programs": "applications", "#portal-saved": "saved", "#portal-profile": "profile", "#portal-tasks": "tasks", "#messages": "messages", "#admin-tasks": "tasks", "#admin-students": "students", "#admin-pipeline": "applications", "#universities": "search", "#finder": "search", "#destinations": "search" };
       studentView.addEventListener("click", function (e) {
-        var a = e.target && e.target.closest ? e.target.closest('a[href^="#portal-"], a[href="#messages"], a[href^="#admin-"]') : null;
+        var a = e.target && e.target.closest ? e.target.closest('a[href^="#portal-"], a[href="#messages"], a[href^="#admin-"], a[href="#universities"], a[href="#finder"], a[href="#destinations"]') : null;
         if (!a) return;
-        var pg = axAnchorPages[a.getAttribute("href")];
-        if (pg) { e.preventDefault(); window.axShowPortalPage(pg); }
+        var href = a.getAttribute("href");
+        var pg = axAnchorPages[href];
+        if (pg) {
+          e.preventDefault();
+          window.axShowPortalPage(pg);
+          if (href === "#universities" || href === "#finder" || href === "#destinations") {
+            var tgt = document.getElementById(href.slice(1));
+            if (tgt) setTimeout(function () { tgt.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
+          }
+        }
       });
       /* Role switch also resets that view to its Home page and swaps the
          office-only "+ Add new student" button. */
@@ -3869,10 +4134,18 @@
          (this listener runs after the counter itself is updated). */
       Array.prototype.forEach.call(document.querySelectorAll("[data-fill-form]"), function (f) {
         f.addEventListener("submit", function () {
+          if (typeof msgRemaining === "undefined") return;
+          /* The bell dot and the Messages rail badge always show the
+             same number as the Messages page count. */
           var dot = document.getElementById("bellDot");
-          if (dot && typeof msgRemaining !== "undefined") {
+          if (dot) {
             dot.textContent = msgRemaining;
             dot.style.display = msgRemaining > 0 ? "" : "none";
+          }
+          var railBadge = document.getElementById("msgRailBadge");
+          if (railBadge) {
+            railBadge.textContent = msgRemaining;
+            railBadge.style.display = msgRemaining > 0 ? "" : "none";
           }
         });
       });
