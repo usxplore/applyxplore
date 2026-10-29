@@ -471,6 +471,8 @@
       
       @media (max-width: 980px) { .side-nav { grid-template-columns: 1fr 1fr; } }
       @media (max-width: 480px) { .side-nav { grid-template-columns: 1fr; } }
+      .side-email { display: block; margin-top: 2px; }
+      .side-email a, .side-help a { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
       .side-help { font-size: 13.5px; background: rgba(255,255,255,0.08); border-radius: 12px; padding: 12px 14px; }
       
       .side-help p { opacity: 0.85; margin-top: 3px; }
@@ -1259,6 +1261,7 @@
                   <div>
                     <b>US Xplore office</b>
                     <span>Admin panel · sample data</span>
+                    <span class="side-email">Office email: <a href="mailto:info@applyxplore.com">info@applyxplore.com</a></span>
                   </div>
                 </div>
                 <nav class="side-nav" aria-label="Office sections">
@@ -1270,6 +1273,7 @@
                 <div class="side-help">
                   <b>How the office works</b>
                   <p>Every student has one ID, one task list, and one message thread per application — the office sees the same order the student sees.</p>
+                  <p><b>Office email:</b> <a href="mailto:info@applyxplore.com">info@applyxplore.com</a> — our free @applyxplore.com address, used for admin mail instead of a personal Gmail.</p>
                 </div>
               </aside>
               <div class="portal-main">
