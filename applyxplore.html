@@ -1069,7 +1069,7 @@
                     </div>
                     <span class="msg-count"><span class="js-task-count">4</span>&nbsp;open</span>
                   </div>
-                  <ul class="task-list">
+                  <ul class="task-list" id="homePreviewList">
                     <li class="task-row">
                       <span class="task-dot is-open" aria-hidden="true">!</span>
                       <div class="task-body">
@@ -1095,6 +1095,7 @@
                       <span class="task-pill pill-action-t">To do</span>
                     </li>
                   </ul>
+                  <p id="homeAllCaughtUp" hidden style="font-size:14.5px;color:var(--ink-2);padding:10px 2px 2px"><b style="color:var(--ink)">All caught up</b> — no open tasks right now. New tasks from our office will appear here and on the Tasks page.</p>
                   <div style="margin-top:14px"><button type="button" class="btn btn-brand btn-sm" data-gopage="tasks">See all tasks →</button></div>
                 </div>
                     <aside class="side-mini" aria-label="Your profile snapshot">
@@ -1132,7 +1133,7 @@
                     </div>
                     <p class="task-group-label">To do — in order</p>
                     <ul class="task-list" id="taskTodoList">
-                      <li class="task-row">
+                      <li class="task-row" id="taskPassport" data-home-title="Upload your passport scan" data-home-desc="For Sample 2 — BBA (Business). We cannot file without it.">
                         <span class="task-dot is-open" aria-hidden="true">!</span>
                         <div class="task-body">
                           <b>Upload your passport scan</b>
@@ -1141,7 +1142,7 @@
                         <span class="task-pill pill-action-t">To do</span>
                         <button type="button" class="btn btn-brand btn-sm" data-gopage="documents">See documents</button>
                       </li>
-                      <li class="task-row">
+                      <li class="task-row" id="taskTranscript" data-home-title="Upload your latest transcript" data-home-desc="For Sample 2 — BBA (Business). The most recent one you have.">
                         <span class="task-dot is-open" aria-hidden="true">!</span>
                         <div class="task-body">
                           <b>Upload your latest transcript</b>
@@ -1150,7 +1151,7 @@
                         <span class="task-pill pill-action-t">To do</span>
                         <button type="button" class="btn btn-brand btn-sm" data-gopage="documents">See documents</button>
                       </li>
-                      <li class="task-row" id="taskSponsor">
+                      <li class="task-row" id="taskSponsor" data-home-title="Fill in your sponsor details form" data-home-desc="For Sample 1 — MS Computer Science. Takes about 2 minutes.">
                         <span class="task-dot is-open" aria-hidden="true">!</span>
                         <div class="task-body">
                           <b>Fill in your sponsor details form</b>
@@ -1191,7 +1192,7 @@
                         </form>
                         <p class="msg-done-note" data-task-done-note hidden><b>✓ Done — thank you.</b> Your sponsor details are with our team for this application. <span>(Demo confirmation.)</span></p>
                       </li>
-                      <li class="task-row" id="taskAddress">
+                      <li class="task-row" id="taskAddress" data-home-title="Confirm your address details" data-home-desc="For Sample 2 — BBA (Business). Confirm the address we should use — it must match your documents exactly.">
                         <span class="task-dot is-open" aria-hidden="true">!</span>
                         <div class="task-body">
                           <b>Confirm your address details</b>
@@ -3377,6 +3378,43 @@
       var loginBtn = document.getElementById("btnLogin");
       var loginModal = document.getElementById("loginModal");
       var studentView = document.getElementById("studentView");
+      /* Reset the catalogue search box and ALL filters to defaults.
+         Called on BOTH sign-in and sign-out: the public catalogue must
+         always open at the full list (242 of 242) after signing out, and
+         the portal Search university page must start clean for each new
+         sign-in — never carrying over a search/filter used in the other
+         context (e.g. "business" + Canada used inside the portal). */
+      function axResetCatalogueFilters() {
+        if (typeof profileMatch !== "undefined" && profileMatch && typeof clearProfile === "function") {
+          clearProfile();
+        } else {
+          var pfIds = ["pf-level", "pf-field", "pf-intake", "pf-gpa", "pf-engtest", "pf-engscore"];
+          pfIds.forEach(function (id) { var el = document.getElementById(id); if (el) el.value = ""; });
+          try { pfCountries = []; } catch (e) {}
+          var pfWrap = document.getElementById("pfCountries");
+          if (pfWrap) Array.prototype.forEach.call(pfWrap.querySelectorAll(".chip"), function (c) { c.setAttribute("aria-pressed", "false"); });
+          var pfB = document.getElementById("pf-budget");
+          if (pfB) { pfB.value = "60000"; if (typeof pfBudgetLabel === "function") pfBudgetLabel(); else { var pfOut = document.getElementById("pf-budget-out"); if (pfOut) pfOut.textContent = "Any budget"; } }
+          var mb = document.getElementById("matchBanner");
+          if (mb) mb.hidden = true;
+        }
+        els.q.value = "";
+        els.country.value = "";
+        els.level.value = "";
+        els.field.value = "";
+        els.sort.value = "name";
+        var hsQ = document.getElementById("hs-q"); if (hsQ) hsQ.value = "";
+        var hsC = document.getElementById("hs-country"); if (hsC) hsC.value = "";
+        var hsL = document.getElementById("hs-level"); if (hsL) hsL.value = "";
+        activeIntake = "";
+        els.chips.forEach(function (c) { c.setAttribute("aria-pressed", c.getAttribute("data-intake") === "" ? "true" : "false"); });
+        Array.prototype.forEach.call(destGrid.querySelectorAll(".dest"), function (x) { x.classList.remove("active"); x.setAttribute("aria-pressed", "false"); });
+        savedOnly = false;
+        var soBtn = document.getElementById("btnSavedOnly");
+        if (soBtn) soBtn.setAttribute("aria-pressed", "false");
+        renderCatalog();
+      }
+      window.axResetCatalogueFilters = axResetCatalogueFilters;
       function setSignedIn(on) {
         signedIn = on;
         loginModal.hidden = true;
@@ -3389,6 +3427,7 @@
         loginBtn.textContent = on ? "Sign out (demo)" : "Student login";
         if (window.axSyncAuthLayout) window.axSyncAuthLayout();
         else studentView.hidden = !on;
+        axResetCatalogueFilters();
         window.scrollTo({ top: 0, behavior: on ? "smooth" : "auto" });
       }
       loginBtn.addEventListener("click", function () {
@@ -3412,6 +3451,46 @@
       function refreshTaskCounts() {
         Array.prototype.forEach.call(document.querySelectorAll(".js-task-count"), function (el) { el.textContent = taskRemaining; });
       }
+      /* Home "Your next steps" preview must stay truthful: it always
+         shows the current top OPEN tasks from the Tasks page (To do list,
+         in order, up to 3). When a task completes — from the Tasks page
+         or from Messages — this rebuild removes it and pulls up the next
+         open task; when none remain it shows the "All caught up" line.
+         The preview count already uses .js-task-count, so count and list
+         can never disagree with the Tasks page. */
+      function refreshHomePreview() {
+        var list = document.getElementById("homePreviewList");
+        if (!list) return;
+        var caught = document.getElementById("homeAllCaughtUp");
+        var todo = document.getElementById("taskTodoList");
+        var openRows = [];
+        if (todo) {
+          Array.prototype.forEach.call(todo.querySelectorAll(".task-row"), function (row) {
+            if (!row.classList.contains("is-done")) openRows.push(row);
+          });
+        }
+        list.innerHTML = "";
+        if (!openRows.length) {
+          list.hidden = true;
+          if (caught) caught.hidden = false;
+          return;
+        }
+        list.hidden = false;
+        if (caught) caught.hidden = true;
+        openRows.slice(0, 3).forEach(function (row) {
+          var titleEl = row.querySelector(".task-body b");
+          var descEl = row.querySelector(".task-body span");
+          var title = row.getAttribute("data-home-title") || (titleEl ? titleEl.textContent.trim() : "");
+          var desc = row.getAttribute("data-home-desc") || (descEl ? descEl.textContent.trim() : "");
+          var li = document.createElement("li");
+          li.className = "task-row";
+          li.innerHTML = '<span class="task-dot is-open" aria-hidden="true">!</span><div class="task-body"><b></b><span></span></div><span class="task-pill pill-action-t">To do</span>';
+          li.querySelector(".task-body b").textContent = title;
+          li.querySelector(".task-body span").textContent = desc;
+          list.appendChild(li);
+        });
+      }
+      window.axRefreshHomePreview = refreshHomePreview;
       var msgRemaining = 2;
       var msgCountEl = document.getElementById("msgActionCount");
       function refreshMsgCount() {
@@ -3476,6 +3555,7 @@
           if (doneList && taskEl.parentNode !== doneList) doneList.appendChild(taskEl);
         }
         axSyncMsgBadges();
+        refreshHomePreview();
         return true;
       }
       Array.prototype.forEach.call(document.querySelectorAll(".msg-open"), function (btn) {
@@ -4150,6 +4230,7 @@
         });
       });
 
+      refreshHomePreview();
       renderCatalog();
       syncUniOptions();
     </script>
