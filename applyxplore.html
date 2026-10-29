@@ -574,12 +574,14 @@
       .track-line-admin { color: var(--ink-2); }
       .track-line-admin span { background: var(--bg-soft); }
 
-      /* ---------- App sidebar layout + Register tab ---------- */
-      /* The public site now works like the portal in the reference: a left
+      /* ---------- App sidebar layout + Register free form ---------- */
+      /* The public site works like the portal in the reference: a left
          sidebar with the main sections, and the work area on the right.
-         Register is its own tab — the registration form is no longer a
-         section at the bottom of the home page. The sidebar is capped to
-         the viewport and scrolls independently of the main page. */
+         The registration form lives inside the page itself — the sidebar
+         Register item, the "Register free" button and every Apply button
+         scroll to it in place; nothing opens as a separate page or view.
+         The sidebar is capped to the viewport and scrolls independently
+         of the main page. */
       .app-layout { display: grid; grid-template-columns: 252px minmax(0, 1fr); gap: 0; max-width: 1480px; margin: 0 auto; align-items: start; }
       .app-main { min-width: 0; }
       .app-sidebar {
@@ -609,9 +611,6 @@
       .app-side-help { margin-top: auto; padding-top: 18px; }
       .app-side-help .box { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px; padding: 13px 14px; font-size: 13.5px; color: var(--ink-2); }
       .app-side-help .box b { color: var(--ink); display: block; margin-bottom: 3px; font-size: 14px; }
-      #apply[hidden] { display: none; }
-      .register-back { display: inline-flex; align-items: center; gap: 7px; border: 0; background: transparent; color: var(--brand); font-weight: 800; font-size: 14.5px; padding: 6px 4px; margin-bottom: 12px; }
-      .register-back:hover { color: var(--brand-deep); text-decoration: underline; }
       @media (min-width: 1024px) { nav.main a[href^="#"]:not(.btn) { display: none; } }
       @media (max-width: 760px) { .app-sidebar { display: none; } }
       @media (max-width: 1023px) {
@@ -813,7 +812,7 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.3A2.6 2.6 0 1 1 12 12.4V14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.6" fill="currentColor" stroke="currentColor" stroke-width="1.2"/></svg>
           Questions
         </button>
-        <button type="button" class="side-item side-item-cta" data-view="register">
+        <button type="button" class="side-item side-item-cta" data-view="home" data-anchor="apply">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
           Register
           <span class="side-badge">Free</span>
@@ -1111,7 +1110,7 @@
                     <span class="panel-kicker">5</span>
                     <div>
                       <h3>My documents</h3>
-                      <p>One list for every document, with its status. Uploads happen in the Register tab; this panel shows what our team holds for you. (Sample statuses.)</p>
+                      <p>One list for every document, with its status. Uploads happen in the Register free form on this page; this panel shows what our team holds for you. (Sample statuses.)</p>
                     </div>
                   </div>
                   <div class="docstat-grid">
@@ -1560,7 +1559,7 @@
             </div>
           </div>
           <div class="steps">
-            <div class="step"><div class="n">1</div><h3>Register &amp; build your profile</h3><p>Create your free ApplyXplore profile in the Register tab — personal details, education history, English test scores. One profile works for every university.</p></div>
+            <div class="step"><div class="n">1</div><h3>Register &amp; build your profile</h3><p>Create your free ApplyXplore profile in the Register free form below — personal details, education history, English test scores. One profile works for every university.</p></div>
             <div class="step"><div class="n">2</div><h3>Choose up to 4 universities — free</h3><p>Each student can apply to 4 universities free. Pick your best 4 from the list above — most of them is free to apply to, and ApplyXplore never adds a charge of its own for those 4. Where a university does charge a fee, we try to get it waived before you pay anything.</p></div>
             <div class="step"><div class="n">3</div><h3>Upload your documents once</h3><p>Passport, transcripts, certificates, English test, statement of purpose, financial proof. Upload them once; we reuse them for every filing.</p></div>
             <div class="step"><div class="n">4</div><h3>We file your applications</h3><p>Our team prepares and submits each application through official partner channels under your email, then confirms to you what was filed, where, and when — as a message in your student panel, one thread for each application.</p></div>
@@ -1598,10 +1597,9 @@
         </div>
       </section>
 
-      <!-- ================= REGISTER (its own tab, not the bottom of Home) ================= -->
-      <section id="apply" hidden>
+      <!-- ================= REGISTER FREE (inside the page, under the Register free buttons) ================= -->
+      <section id="apply">
         <div class="wrap">
-          <button type="button" class="register-back" id="btnBackToBrowse">← Back to browsing universities</button>
           <div class="apply-shell">
             <div class="apply-head">
               <h2>Register &amp; start your application</h2>
@@ -1911,7 +1909,7 @@
           <button class="btn btn-brand" type="submit" style="justify-content:center">Sign in as guest</button>
           <button class="btn btn-ghost" type="button" id="loginAdminBtn" style="justify-content:center">Preview the office / admin view instead</button>
         </form>
-        <p class="fine-print">Demo only — no account is created and no password is stored. Real students register in the Register tab, and our team confirms every file personally.</p>
+        <p class="fine-print">Demo only — no account is created and no password is stored. Real students register in the Register free form on this page, and our team confirms every file personally.</p>
       </div>
     </div>
 
@@ -2511,7 +2509,7 @@
             (function () { var tags = []; if (u.type) tags.push(u.type.charAt(0).toUpperCase() + u.type.slice(1)); u.levels.forEach(function (l) { tags.push(l); }); return tags.length ? '<div class="tags">' + tags.map(function (t) { return '<span class="tag">' + esc(t) + "</span>"; }).join("") + "</div>" : ""; })() +
             (u.programs
               ? '<p class="progs">' + esc(u.programs) + "</p>"
-              : '<p class="progs">Program details for this school are being added to the catalogue. Register in the Register tab and tell us your subject — our team will confirm the programs open to you here.</p>') +
+              : '<p class="progs">Program details for this school are being added to the catalogue. Register in the Register free form below and tell us your subject — our team will confirm the programs open to you here.</p>') +
             (camps.length && camps[0] ? '<p class="progs"><strong>Campuses / branches:</strong> ' + esc(camps.join(" · ")) + "</p>" : "") +
             '<dl class="facts">' +
             (u.tuition != null || u.tuitionLabel ? "<div><dt>Tuition (1st year, approx.)</dt><dd>" + money(u) + "</dd></div>" : "") +
@@ -3005,7 +3003,7 @@
         matchSummary.textContent = (parts.length ? "Showing only universities that fit: " + parts.join(" · ") + ". " : "Showing the universities that fit your answers. ") +
           "Schools with no listed tuition are never hidden by a budget." +
           ((profileMatch.gpa || profileMatch.engtest || profileMatch.engscore)
-            ? " Your grades and English score are saved into your registration form in the Register tab — our team checks them against each school's entry requirements; no school is hidden by a score rule we haven't verified."
+            ? " Your grades and English score are saved into your Register free form below — our team checks them against each school's entry requirements; no school is hidden by a score rule we haven't verified."
             : "");
         matchBanner.hidden = false;
         renderCatalog();
@@ -3174,8 +3172,8 @@
          always at the bottom without covering anything. */
       function dockScrollTo(el) {
         if (!el) return;
-        /* View-aware: targets inside the Register tab open that tab first;
-           targets in a Home section return to the Home view first. */
+        /* The Register free form is part of this page: targets inside
+           it just scroll to it in place, like every other section. */
         var applySec = document.getElementById("apply");
         if (applySec && (el === applySec || applySec.contains(el))) {
           if (window.axShowRegister) window.axShowRegister();
@@ -3402,76 +3400,64 @@
         else loginModal.hidden = false;
       });
 
-      /* ==================== Sidebar layout + Register tab ====================
-         The public site uses a sidebar (like the portal): Home shows the
-         browsing sections; Register is its own tab, so the registration
-         form no longer sits at the bottom of the home page. Switching is
-         in-memory only — the form and catalogue keep their state. */
-      var axHomeIds = ["destinations", "finder", "universities", "how", "documents", "faq"];
-      var axHero = document.querySelector(".hero");
+      /* ==================== Sidebar layout + Register free form ====================
+         One page, in-page scrolling only. The registration form sits
+         inside the page (the #apply section), so:
+         - the top-bar "Register free" button scrolls to it,
+         - the sidebar Register item scrolls to it,
+         - every university Apply button (chooseUniversity) scrolls to it
+           with that university already chosen in the form.
+         Nothing is hidden or swapped out — pressing Register or Apply
+         never opens a separate page or view. */
       var axApply = document.getElementById("apply");
       var axSideItems = document.querySelectorAll("#appSidebar .side-item[data-view]");
-      var axCurrentView = "home";
-      function axSetActive(view, anchor) {
+      function axSetActive(anchor) {
         Array.prototype.forEach.call(axSideItems, function (b) {
-          var on;
-          if (view === "register") on = b.getAttribute("data-view") === "register";
-          else on = b.getAttribute("data-view") === "home" && (b.getAttribute("data-anchor") || "top") === (anchor || "top");
+          var on = (b.getAttribute("data-anchor") || "top") === (anchor || "top");
           b.classList.toggle("is-active", !!on);
           if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
         });
       }
-      function axApplyView(view, anchor) {
-        axCurrentView = view;
-        var home = view === "home";
-        if (axHero) axHero.hidden = !home;
-        axHomeIds.forEach(function (id) { var el = document.getElementById(id); if (el) el.hidden = !home; });
-        if (axApply) axApply.hidden = home;
-        axSetActive(view, anchor);
+      function axScrollToId(id) {
+        if (!id || id === "top") { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+        var t = document.getElementById(id);
+        if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
       }
       function axShowHome(anchor) {
-        axApplyView("home", anchor || "top");
-        if (anchor && anchor !== "top") {
-          var t = document.getElementById(anchor);
-          if (t) { t.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
-        }
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        axSetActive(anchor || "top");
+        axScrollToId(anchor || "top");
       }
       function axShowRegister() {
-        axApplyView("register");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        axSetActive("apply");
+        if (axApply) axApply.scrollIntoView({ behavior: "smooth", block: "start" });
       }
       window.axShowHome = axShowHome;
       window.axShowRegister = axShowRegister;
-      window.axShowHomeViewOnly = function () { axApplyView("home", "top"); };
+      /* Kept for older callers: the home sections are always on the page
+         now, so there is no separate view to restore. */
+      window.axShowHomeViewOnly = function () {};
       Array.prototype.forEach.call(axSideItems, function (b) {
         b.addEventListener("click", function () {
-          if (b.getAttribute("data-view") === "register") axShowRegister();
-          else axShowHome(b.getAttribute("data-anchor") || "top");
+          var anchor = b.getAttribute("data-anchor") || "top";
+          if (anchor === "apply") axShowRegister();
+          else axShowHome(anchor);
         });
       });
       var sideLoginBtn = document.getElementById("sideLogin");
       if (sideLoginBtn) sideLoginBtn.addEventListener("click", function () { loginBtn.click(); });
-      var backBtn = document.getElementById("btnBackToBrowse");
-      if (backBtn) backBtn.addEventListener("click", function () { axShowHome("universities"); });
       /* Every Register / #apply link anywhere (top bar, empty state, chat
-         answers) opens the Register tab instead of jumping to the bottom. */
+         answers) scrolls to the Register free form inside this page. */
       document.addEventListener("click", function (e) {
         var a = e.target && e.target.closest ? e.target.closest('a[href="#apply"]') : null;
         if (!a) return;
         e.preventDefault();
         axShowRegister();
       });
-      /* Top-bar section links (shown where the sidebar is a top strip)
-         return to the Home view before jumping. */
+      /* Top-bar section links just mark their section active in the
+         sidebar; the browser's own anchor jump does the scrolling. */
       Array.prototype.forEach.call(document.querySelectorAll('nav.main a[href^="#"]'), function (a) {
         if (a.getAttribute("href") === "#apply") return;
-        a.addEventListener("click", function (e) {
-          if (axCurrentView !== "home") {
-            e.preventDefault();
-            axShowHome(a.getAttribute("href").slice(1));
-          }
-        });
+        a.addEventListener("click", function () { axSetActive(a.getAttribute("href").slice(1)); });
       });
 
       renderCatalog();
